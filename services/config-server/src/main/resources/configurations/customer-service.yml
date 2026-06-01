@@ -1,0 +1,6 @@
+spring:
+  mongodb:
+    uri: mongodb://yahya:yahya@localhost:27017/customer?authSource=admin
+
+server:
+  port: 8090

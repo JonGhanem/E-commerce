@@ -1,0 +1,77 @@
+services:
+  postgres:
+    container_name: ms_pg_sql
+    image: postgres
+    environment:
+      POSTGRES_USER: yahya
+      POSTGRES_PASSWORD: yahya
+      POSTGRES_DB: yahya
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - microservices-net
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: ms_pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - 5050:80
+    networks:
+      - microservices-net
+    restart: unless-stopped
+
+  mongodb:
+    container_name: ms_mongo_db
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=yahya
+      - MONGO_INITDB_ROOT_PASSWORD=yahya
+    networks:
+      - microservices-net
+    restart: unless-stopped
+
+  mongo-express:
+    container_name: ms_mongo_express
+    image: mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_URL=mongodb://yahya:yahya@mongodb:27017/
+      - ME_CONFIG_BASICAUTH_USERNAME=yahya
+      - ME_CONFIG_BASICAUTH_PASSWORD=yahya
+    ports:
+      - 8081:8081
+    networks:
+      - microservices-net
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+
+  mail-dev:
+    container_name: ms_mail_dev
+    image: maildev/maildev
+    ports:
+      - 1025:1025
+      - 8025:8025
+
+networks:
+  microservices-net:
+    driver: bridge
+
+
+volumes:
+  postgres:
+  pgadmin:
+  mongo:
