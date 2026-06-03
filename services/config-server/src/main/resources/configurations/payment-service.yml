@@ -1,17 +1,9 @@
 server:
-  port: 8070
-
-application:
-  config:
-    customer-url: http://localhost:8222/api/v1/customer
-    product-url: http://localhost:8222/api/v1/products
-    payment-url: http://localhost:8222/api/v1/payment
+  port: 8060
 
 spring:
-  flyway:
-    enabled: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/order
+    url: jdbc:postgresql://localhost:5432/payment
     username: yahya
     password: yahya
     driver-class-name: org.postgresql.Driver
@@ -29,4 +21,4 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: orderConfirmation:net.yahya.ecommerce.kafka.OrderConfirmation
+        spring.json.type.mapping: PaymentNotificationRequest:net.yahya.ecommerce.notification

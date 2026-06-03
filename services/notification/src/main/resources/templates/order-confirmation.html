@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Order is Confirmed! 🎉</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .header {
+            background-color: #4F46E5;
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 0.5px;
+        }
+        .content {
+            padding: 30px;
+            color: #374151;
+            line-height: 1.6;
+        }
+        .order-summary {
+            background-color: #f9fafb;
+            border-left: 4px solid #4F46E5;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+        th {
+            color: #6b7280;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        .total-row {
+            font-size: 18px;
+            font-weight: bold;
+            color: #111827;
+        }
+        .footer {
+            background-color: #f9fafb;
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            color: #6b7280;
+            border-top: 1px solid #e5e7eb;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #4F46E5;
+            color: #ffffff;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Order Confirmed! 🎉</h1>
+            <p style="margin-top: 10px; opacity: 0.9;">Thanks for shopping with us.</p>
+        </div>
+
+        <!-- Body Content -->
+        <div class="content">
+            <p>Hi <strong th:text="${customerName}">Customer</strong>,</p>
+            <p>We're getting your order ready to be shipped. We will notify you when it has been sent.</p>
+
+            <div class="order-summary">
+                <strong>Order Reference:</strong> <span th:text="${orderReference}">#ORD-123456</span><br>
+                <strong>Total Amount:</strong> $<span th:text="${totalAmount}">99.99</span>
+            </div>
+
+            <h3>Order Details</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th style="text-align: right;">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through products -->
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.name}">Awesome Gadget</td>
+                        <td th:text="${product.quantity}">1</td>
+                        <td style="text-align: right;">$<span th:text="${product.price}">49.99</span></td>
+                    </tr>
+                    <!-- Total Row -->
+                    <tr>
+                        <td colspan="2" class="total-row" style="padding-top: 20px;">Total</td>
+                        <td class="total-row" style="text-align: right; padding-top: 20px;">
+                            $<span th:text="${totalAmount}">99.99</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="text-align: center;">
+                <a href="#" class="btn">View Order Status</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>If you have any questions, simply reply to this email or reach out to our support team.</p>
+            <p>&copy; 2023 Your E-Commerce Store. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package net.yahya.ecommerce.customer;
 
+
 public record CustomerResponse(
     String id,
     String firstname,

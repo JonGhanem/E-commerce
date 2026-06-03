@@ -12,12 +12,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class OrderProducer {
-
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     private final KafkaTemplate<String, OrderConfirmation> kafkaTemplate;
 
     public void sendOrderConfirmation (OrderConfirmation orderConfirmation){
-        log.info("sending order confirmation");
+        log.info("Sending order confirmation with body <{}>", orderConfirmation);
         Message<OrderConfirmation> message = MessageBuilder
                 .withPayload(orderConfirmation)
                 .setHeader(KafkaHeaders.TOPIC, "order-topic")
@@ -25,4 +23,5 @@ public class OrderProducer {
         kafkaTemplate.send(message);
 
     }
+
 }

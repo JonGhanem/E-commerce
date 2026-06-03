@@ -9,6 +9,8 @@ import net.yahya.ecommerce.kafka.OrderConfirmation;
 import net.yahya.ecommerce.kafka.OrderProducer;
 import net.yahya.ecommerce.orderline.OrderLineRequest;
 import net.yahya.ecommerce.orderline.OrderLineService;
+import net.yahya.ecommerce.payment.PaymentClient;
+import net.yahya.ecommerce.payment.PaymentRequest;
 import net.yahya.ecommerce.product.ProductClient;
 import net.yahya.ecommerce.product.PurchaseRequest;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,7 @@ public class OrderService {
     private final ProductClient productClient;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
 
     public Integer createOrder(@Valid OrderRequest request) {
         var customer = customerClient.findCustomerById(request.customerId())
@@ -45,7 +48,14 @@ public class OrderService {
                     )
             );
         }
-        // todo start payment process
+        var paymentRequest = new PaymentRequest(
+                request.totalAmount(),
+                request.paymentMethod(),
+                order.getId(),
+                order.getReference(),
+                customer
+        );
+        paymentClient.requestOrderPayment(paymentRequest);
 
         orderProducer.sendOrderConfirmation(
                 new OrderConfirmation(

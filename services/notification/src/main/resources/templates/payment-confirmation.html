@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful! ✅</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .header {
+            background-color: #10B981; /* Success Green */
+            color: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 0.5px;
+        }
+        .content {
+            padding: 30px;
+            color: #374151;
+            line-height: 1.6;
+        }
+        .receipt-box {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-top: 4px solid #10B981;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .footer {
+            background-color: #f9fafb;
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            color: #6b7280;
+            border-top: 1px solid #e5e7eb;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #10B981;
+            color: #ffffff;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Payment Successful! ✅</h1>
+            <p style="margin-top: 10px; opacity: 0.9;">Thank you for your payment.</p>
+        </div>
+        <div class="content">
+            <p>Hi <strong th:text="${customerName}">Customer</strong>,</p>
+            <p>We've successfully processed your payment. Your transaction is complete, and we are getting your order ready!</p>
+
+            <div class="receipt-box">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #6b7280;">Amount Paid:</td>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; text-align: right; font-size: 18px;">
+                            <strong>$<span th:text="${amount}">99.99</span></strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 0; color: #6b7280;">Order Reference:</td>
+                        <td style="padding: 10px 0; text-align: right;">
+                            <strong th:text="${orderReference}">ORD-123456</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <p>You will receive a separate notification once your items have shipped.</p>
+
+            <div style="text-align: center;">
+                <a href="#" class="btn">View Order Details</a>
+            </div>
+        </div>
+        <div class="footer">
+            <p>If you have any questions or didn't authorize this payment, please reply to this email to contact our support immediately.</p>
+            <p>&copy; 2023 Your E-Commerce Store. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
