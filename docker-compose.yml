@@ -87,6 +87,27 @@ services:
     networks:
       - microservices-net
 
+  zipkin:
+    container_name: ms_zipkin
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+    networks:
+      - microservices-net
+
+  keycloak:
+    container_name: ms_keycloak
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: yahya
+      KC_BOOTSTRAP_ADMIN_PASSWORD: yahya
+    ports:
+      - 8098:8080
+    networks:
+      - microservices-net
+    restart: unless-stopped
+    command: start-dev
+
 networks:
   microservices-net:
     driver: bridge
